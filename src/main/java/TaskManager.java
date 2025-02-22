@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class TaskManager {
-    private final List<Task> tasks;
+    private final ArrayList<Task> tasks;
     String TEST_FILE = "tasks.csv";
     File csvFile = new File(TEST_FILE);
 
@@ -26,12 +26,8 @@ public class TaskManager {
     public List<Task> listTasks() { return this.tasks; }
 
     public void deleteTask(Task task) {
-        for (Task i : this.tasks)
-            if (i.isComplete() == task.isComplete())
-                if (i.getTitle().equals(task.getTitle()) && i.getDescription().equals(task.getDescription())) {
-                    this.tasks.remove(i);
-                    break;
-                    }
+        if ( !this.tasks.removeIf(i -> i.equals(task)) )
+            throw new IllegalArgumentException("Task not found!");
     }
 
     public void markTaskAsComplete(Task task) {

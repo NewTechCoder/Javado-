@@ -16,4 +16,14 @@ public class Task {
     public boolean isComplete() { return isTaskCompleted; }
 
     public void markAsCompleted() { isTaskCompleted = true; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return taskName.equals(task.taskName)
+                && taskDescription.equals(task.taskDescription)
+                && isTaskCompleted == task.isTaskCompleted;
+    }
 }

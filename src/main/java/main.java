@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -29,7 +31,7 @@ public class main {
                     String description = scanner.nextLine();
                     boolean status = false;
                     manager.addTask( new Task(title, description, status) );
-                    System.out.println("=== Task Added ===");
+                    System.out.println("\n=== Task Added ===");
                     break;
                 case 2:
                     // TODO: Handle Empty Task List
@@ -50,8 +52,12 @@ public class main {
                     System.out.print("Description: ");
                     String descriptionToMark = scanner.nextLine();
                     boolean statusToMark = false;
-                    manager.markTaskAsComplete( new Task(titleToMark, descriptionToMark, statusToMark) );
-                    System.out.println("=== Task Marked ===");
+                    try {
+                        manager.markTaskAsComplete(new Task(titleToMark, descriptionToMark, statusToMark));
+                        System.out.println("\n=== Task Marked ===");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("\n=== Task Not Marked ===");
+                    }
                     break;
                 case 4:
                     // TODO: Handle Task Deletion Errors
@@ -62,8 +68,12 @@ public class main {
                     String descriptionToDel = scanner.nextLine();
                     System.out.print("Is it completed? (Y/N): ");
                     boolean statusToDel = scanner.nextLine().equalsIgnoreCase("y");
-                    manager.deleteTask( new Task(titleToDel, descriptionToDel, statusToDel) );
-                    System.out.println("=== Task Deleted ===.");
+                    try {
+                        manager.deleteTask(new Task(titleToDel, descriptionToDel, statusToDel));
+                        System.out.println("\n=== Task Deleted ===");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("\n=== Task Not Deleted ===");
+                    }
                     break;
                 case 5:
                     manager.exit();
