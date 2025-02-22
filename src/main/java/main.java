@@ -7,6 +7,7 @@ public class main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+            // TODO: Handle Invalid Menu Choices
             System.out.println("\n=== Task Manager ===\n");
             System.out.println("1. Add Task");
             System.out.println("2. List Tasks");
@@ -20,6 +21,7 @@ public class main {
 
             switch (choice) {
                 case 1:
+                    // TODO: Ensure Valid Input When Adding Tasks
                     System.out.println("=== Add Task ===\n");
                     System.out.print("Title: ");
                     String title = scanner.nextLine();
@@ -30,6 +32,7 @@ public class main {
                     System.out.println("=== Task Added ===");
                     break;
                 case 2:
+                    // TODO: Handle Empty Task List
                     System.out.println("=== Task List ===\n");
                     manager.listTasks().forEach(task -> {
                         int taskNumber = manager.listTasks().indexOf(task) + 1;
@@ -51,6 +54,7 @@ public class main {
                     System.out.println("=== Task Marked ===");
                     break;
                 case 4:
+                    // TODO: Handle Task Deletion Errors
                     System.out.println("=== Delete Task ===\n");
                     System.out.print("Title: ");
                     String titleToDel = scanner.nextLine();
