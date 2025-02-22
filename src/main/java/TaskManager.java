@@ -8,31 +8,29 @@ import java.util.List;
 
 
 public class TaskManager {
-    private final List<String> tasks;
+    private final List<Task> tasks;
     String TEST_FILE = "tasks.csv";
     File csvFile = new File(TEST_FILE);
 
     public TaskManager()  {
         try {
-            if (!csvFile.exists()) {
-                csvFile.createNewFile();
-            }
+            this.tasks = new ArrayList<>();
+            if (!csvFile.exists()) { csvFile.createNewFile(); }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.tasks = new ArrayList<>();
     }
 
-    public void addTask(String task) {
-        this.tasks.add(task);
-    }
+    public void addTask(Task task) { this.tasks.add(task); }
 
-    public List<String> listTasks() {
-        return this.tasks;
-    }
+    public List<Task> listTasks() { return this.tasks; }
 
-    public void deleteTask(String task){
-        this.tasks.remove(task);
+    public void deleteTask(Task task){ this.tasks.remove(task); }
+
+    public void markTaskAsComplete(Task task) {
+        deleteTask(task);
+        task.markAsCompleted();
+        addTask(task);
     }
 
     public void exit() {
@@ -41,9 +39,16 @@ public class TaskManager {
                 CSVWriter.NO_QUOTE_CHARACTER,
                 CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                 CSVWriter.DEFAULT_LINE_END)) {
-            for (String task : tasks) {
-                writer.writeNext(new String[]{task});
-            }
+            String[] header = new String[]{"Title,Description,isCompleted"};
+            writer.writeNext(header);
+
+            this.tasks.forEach(task -> {
+                boolean status = task.isComplete();
+                String title = task.getTitle();
+                String description = task.getDescription();
+                String row = String.format("%s,%s,%b", title, description, status);
+                writer.writeNext(new String[]{row});
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

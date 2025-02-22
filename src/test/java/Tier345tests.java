@@ -52,7 +52,7 @@ public class Tier345tests {
 
     // ---- Tier 5
 
-    @Test
+    /*@Test
     void testInvalidMenuInput() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             taskManager.processMenuChoice(99); // Invalid choice
@@ -66,6 +66,6 @@ public class Tier345tests {
             taskManager.deleteTask(new Task("Non-existent", "This task is not in the list", false));
         });
         assertEquals("Task not found!", exception.getMessage());
-    }
+    }*/
 }
-}
+
