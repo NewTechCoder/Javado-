@@ -9,15 +9,11 @@ public class Task {
         this.isTaskCompleted = isTaskCompleted;
     }
 
-    public String getTitle() {
-        return taskName;
-    }
+    public String getTitle() { return taskName; }
 
     public String getDescription() { return taskDescription; }
 
-    public boolean isComplete() {
-        return isTaskCompleted;
-    }
+    public boolean isComplete() { return isTaskCompleted; }
 
     public void markAsCompleted() { isTaskCompleted = true; }
 }
