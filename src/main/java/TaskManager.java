@@ -41,20 +41,16 @@ public class TaskManager {
     }
 
     public void exit() {
-        try (CSVWriter writer = new CSVWriter(new FileWriter(this.csvFile),
-                CSVWriter.DEFAULT_SEPARATOR,
-                CSVWriter.NO_QUOTE_CHARACTER,
-                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
-                CSVWriter.DEFAULT_LINE_END)) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(this.csvFile))) {
             String[] header = new String[]{"Title,Description,isCompleted"};
-            writer.writeNext(header);
+            writer.writeNext(header, false);
 
             this.tasks.forEach(task -> {
                 boolean status = task.isComplete();
                 String title = task.getTitle();
                 String description = task.getDescription();
                 String row = String.format("%s,%s,%b", title, description, status);
-                writer.writeNext(new String[]{row});
+                writer.writeNext(new String[]{row}, false);
             });
         } catch (IOException e) {
             e.printStackTrace();
