@@ -32,13 +32,19 @@ public class main {
             switch (choice) {
                 case 1:
                     System.out.println("=== Add Task ===\n");
-                    System.out.print("Title: ");
-                    String title = scanner.nextLine();
-                    System.out.print("Description: ");
-                    String description = scanner.nextLine();
-                    boolean status = false;
-                    manager.addTask(new Task(title, description, status));
+                    while (true) {
+                        System.out.print("Title: ");
+                        String title = scanner.nextLine().strip();
+                        System.out.print("Description: ");
+                        String description = scanner.nextLine().strip();
+                        if ( !description.isBlank() && !title.isBlank() ) {
+                            boolean status = false;
+                            manager.addTask(new Task(title, description, status));
+                            break;
+                        } else System.out.println("Invalid Task!!\n");
+                    }
                     System.out.println("\n=== Task Added ===");
+
                     break;
                 case 2:
                     System.out.println("=== Task List ===\n");
