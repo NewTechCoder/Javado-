@@ -1,20 +1,23 @@
+import com.opencsv.CSVWriter;
+
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class TaskManager {
     private final List<String> tasks;
-    private final PrintWriter printWriter;
+    String TEST_FILE = "tasks.csv";
+    File csvFile = new File(TEST_FILE);
 
-    public TaskManager() {
+    public TaskManager()  {
         try {
-            String TEST_FILE = "tasks.csv";
-            File csvFile = new File(TEST_FILE);
-            this.printWriter = new PrintWriter(csvFile);
-        } catch (FileNotFoundException e) {
+            if (!csvFile.exists()) {
+                csvFile.createNewFile();
+            }
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         this.tasks = new ArrayList<>();
@@ -33,7 +36,16 @@ public class TaskManager {
     }
 
     public void exit() {
-        this.tasks.forEach(this.printWriter::println);
-        this.printWriter.close();
+        try (CSVWriter writer = new CSVWriter(new FileWriter(this.csvFile),
+                CSVWriter.DEFAULT_SEPARATOR,
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END)) {
+            for (String task : tasks) {
+                writer.writeNext(new String[]{task});
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
