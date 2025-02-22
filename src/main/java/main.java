@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -8,41 +9,51 @@ public class main {
         TaskManager manager = new TaskManager();
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            // TODO: Handle Invalid Menu Choices
-            System.out.println("\n=== Task Manager ===\n");
-            System.out.println("1. Add Task");
-            System.out.println("2. List Tasks");
-            System.out.println("3. Mark as Done");
-            System.out.println("4. Delete Task");
-            System.out.println("5. Exit");
-            System.out.print("Choose an option: ");
+        // TODO: Handle Invalid Menu Choices
+        int choice = 0;
+        do {
+            try {
+                System.out.println("\n=== Task Manager ===\n");
+                System.out.println("1. Add Task");
+                System.out.println("2. List Tasks");
+                System.out.println("3. Mark as Done");
+                System.out.println("4. Delete Task");
+                System.out.println("5. Exit");
+                System.out.print("Choose an option: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+                choice = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid choice!");
+                scanner.nextLine();
+                continue;
+            }
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
-                    // TODO: Ensure Valid Input When Adding Tasks
                     System.out.println("=== Add Task ===\n");
                     System.out.print("Title: ");
                     String title = scanner.nextLine();
                     System.out.print("Description: ");
                     String description = scanner.nextLine();
                     boolean status = false;
-                    manager.addTask( new Task(title, description, status) );
+                    manager.addTask(new Task(title, description, status));
                     System.out.println("\n=== Task Added ===");
                     break;
                 case 2:
-                    // TODO: Handle Empty Task List
                     System.out.println("=== Task List ===\n");
-                    manager.listTasks().forEach(task -> {
-                        int taskNumber = manager.listTasks().indexOf(task) + 1;
-                        System.out.println("Task (" +  taskNumber + "): " + task.getTitle());
-                        System.out.println("Description: " + task.getDescription());
-                        System.out.println("Completed: " + task.isComplete());
-                        System.out.println();
-                    });
+
+                    if ( manager.listTasks().isEmpty() )
+                        System.out.println("No tasks to display!\n");
+                    else
+                        manager.listTasks().forEach(task -> {
+                            int taskNumber = manager.listTasks().indexOf(task) + 1;
+                            System.out.println("Task (" + taskNumber + "): " + task.getTitle());
+                            System.out.println("Description: " + task.getDescription());
+                            System.out.println("Completed: " + task.isComplete());
+                            System.out.println();
+                        });
+
                     System.out.println("=== === === === ===");
                     break;
                 case 3:
@@ -82,6 +93,6 @@ public class main {
                 default:
                     System.out.println("Invalid choice!");
             }
-        }
+        } while (true);
     }
 }

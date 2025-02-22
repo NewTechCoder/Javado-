@@ -52,4 +52,9 @@ public class TaskManager {
             e.printStackTrace();
         }
     }
+
+    public void processMenuChoice(int choice) {
+        if ( choice < 1 || choice > 5 )
+            throw new IllegalArgumentException("Invalid menu option!");
+    }
 }

@@ -52,14 +52,13 @@ public class Tier345tests {
 
     // ---- Tier 5
 
-    /*@Test
+    @Test
     void testInvalidMenuInput() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             taskManager.processMenuChoice(99); // Invalid choice
         });
         assertEquals("Invalid menu option!", exception.getMessage());
     }
-    */
     @Test
     void testInvalidTaskDeletion() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
