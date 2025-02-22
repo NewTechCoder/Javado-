@@ -25,7 +25,14 @@ public class TaskManager {
 
     public List<Task> listTasks() { return this.tasks; }
 
-    public void deleteTask(Task task){ this.tasks.remove(task); }
+    public void deleteTask(Task task) {
+        for (Task i : this.tasks)
+            if (i.isComplete() == task.isComplete())
+                if (i.getTitle().equals(task.getTitle()) && i.getDescription().equals(task.getDescription())) {
+                    this.tasks.remove(i);
+                    break;
+                    }
+    }
 
     public void markTaskAsComplete(Task task) {
         deleteTask(task);
