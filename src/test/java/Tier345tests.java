@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
+
+import java.io.IOException;
 import java.util.List;
 
 
@@ -8,7 +10,7 @@ public class Tier345tests {
     private TaskManager taskManager;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         taskManager = new TaskManager();
     }
 

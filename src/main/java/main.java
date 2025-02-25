@@ -1,31 +1,29 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         TaskManager manager = new TaskManager();
         Scanner scanner = new Scanner(System.in);
 
-        // TODO: Handle Invalid Menu Choices
-        int choice = 0;
         do {
-            try {
-                System.out.println("\n=== Task Manager ===\n");
-                System.out.println("1. Add Task");
-                System.out.println("2. List Tasks");
-                System.out.println("3. Mark as Done");
-                System.out.println("4. Delete Task");
-                System.out.println("5. Exit");
-                System.out.print("Choose an option: ");
+            int choice = 0;
 
+            System.out.println("\n=== Task Manager ===\n");
+            System.out.println("1. Add Task");
+            System.out.println("2. List Tasks");
+            System.out.println("3. Mark as Done");
+            System.out.println("4. Delete Task");
+            System.out.println("5. Exit");
+            System.out.print("Choose an option: ");
+
+            try {
                 choice = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid choice!");
-                scanner.nextLine();
-                continue;
+                manager.processMenuChoice(choice);
+            } catch (InputMismatchException | IllegalArgumentException e) {
+                choice = -1;
             }
             scanner.nextLine();
 
