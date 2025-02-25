@@ -1,6 +1,6 @@
 public class Task {
-    private final String taskName;
-    private final String taskDescription;
+    private String taskName;
+    private String taskDescription;
     private boolean isTaskCompleted;
 
     public Task(String taskName, String taskDescription, boolean isTaskCompleted) {
@@ -16,6 +16,10 @@ public class Task {
     public boolean isComplete() { return isTaskCompleted; }
 
     public void markAsCompleted() { isTaskCompleted = true; }
+
+    public void SetTaskName(String taskName) { this.taskName = taskName; }
+
+    public void SetTaskDescription(String taskDescription) { this.taskDescription = taskDescription; }
 
     @Override
     public boolean equals(Object o) {
