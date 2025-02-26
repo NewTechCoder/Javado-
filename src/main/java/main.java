@@ -75,7 +75,6 @@ public class main {
                     }
                     break;
                 case 4:
-                    // TODO: Handle Task Deletion Errors
                     System.out.println("=== Delete Task ===\n");
                     System.out.print("Title: ");
                     String titleToDel = scanner.nextLine();
